@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>علی دولت‌خواه | وب‌سایت رسمی آهنگ‌ها</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 0 0 110px; background: #0f0f13; color: #f0eee8; font-family: Tahoma, sans-serif; }
+  a { color: #d4af37; }
+  header { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 24px; border-bottom: 1px solid #2a2a30; flex-wrap: wrap; }
+  header .brand { font-size: 20px; font-weight: bold; }
+  header .brand span { color: #b2aea3; font-size: 14px; font-weight: normal; }
+  .btn-gold { background: #d4af37; color: #14120a; border: none; border-radius: 12px; padding: 10px 18px; font-family: Tahoma, sans-serif; font-size: 15px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; }
+  .hero { text-align: center; padding: 48px 20px 32px; }
+  .hero img { width: 280px; height: 280px; object-fit: cover; object-position: top; border-radius: 50%; border: 5px solid #d4af37; box-shadow: 0 0 0 6px rgba(212,175,55,.18), 0 12px 40px rgba(0,0,0,.6); }
+  .hero .kicker { color: #d4af37; font-size: 16px; margin: 28px 0 8px; }
+  .hero h1 { font-size: 44px; margin: 0 0 14px; line-height: 1.2; }
+  .hero p { color: #b2aea3; font-size: 16px; max-width: 640px; margin: 0 auto; line-height: 1.9; }
+  main { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  h2 { font-size: 24px; margin: 36px 0 12px; }
+  .count { color: #b2aea3; font-size: 14px; }
+  .featured { background: #1c1c22; border: 1px solid #3a3a42; border-radius: 20px; padding: 24px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .cover { width: 120px; height: 120px; min-width: 120px; border-radius: 16px; background: #121216; border: 1px solid #3a3a42; display: flex; align-items: center; justify-content: center; font-size: 52px; color: #d4af37; overflow: hidden; }
+  .cover img { width: 100%; height: 100%; object-fit: cover; }
+  .featured .info { flex: 1; min-width: 220px; }
+  .featured .label { color: #d4af37; font-size: 14px; margin-bottom: 6px; }
+  .featured .title { font-size: 24px; font-weight: bold; margin-bottom: 4px; }
+  .featured .artist { color: #b2aea3; margin-bottom: 14px; }
+  .play-btn { background: #d4af37; color: #14120a; border: none; border-radius: 999px; padding: 10px 20px; font-family: Tahoma, sans-serif; font-size: 15px; font-weight: bold; cursor: pointer; }
+  .search { width: 100%; padding: 13px 16px; font-size: 16px; font-family: Tahoma, sans-serif; background: #121216; color: #f0eee8; border: 1px solid #3a3a42; border-radius: 12px; margin: 8px 0 18px; }
+  .song { display: flex; align-items: center; gap: 16px; background: #1c1c22; border: 1px solid #3a3a42; border-radius: 16px; padding: 14px 16px; margin-bottom: 12px; cursor: pointer; }
+  .song:hover { border-color: #d4af37; }
+  .song .cover { width: 64px; height: 64px; min-width: 64px; font-size: 30px; border-radius: 12px; }
+  .song .info { flex: 1; min-width: 0; }
+  .song .title { font-weight: bold; font-size: 17px; }
+  .song .artist { color: #b2aea3; font-size: 14px; margin-top: 3px; }
+  .song .dur { color: #b2aea3; font-size: 14px; white-space: nowrap; }
+  .song .mini-play { background: transparent; color: #d4af37; border: 1px solid #d4af37; border-radius: 999px; padding: 8px 14px; font-family: Tahoma, sans-serif; cursor: pointer; white-space: nowrap; }
+  .player { position: fixed; left: 0; right: 0; bottom: 0; background: #1c1c22; border-top: 1px solid #3a3a42; padding: 12px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .player .cover { width: 52px; height: 52px; min-width: 52px; font-size: 26px; border-radius: 10px; }
+  .player .info { min-width: 140px; }
+  .player .title { font-weight: bold; }
+  .player .artist { color: #b2aea3; font-size: 13px; }
+  .player .controls { display: flex; align-items: center; gap: 10px; }
+  .player .controls button { background: #d4af37; color: #14120a; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 17px; cursor: pointer; }
+  .player .controls button.small { background: transparent; color: #f0eee8; border: 1px solid #3a3a42; width: 38px; height: 38px; font-size: 15px; }
+  .progress-wrap { flex: 1; min-width: 180px; display: flex; align-items: center; gap: 10px; }
+  .progress { flex: 1; height: 6px; background: #3a3a42; border-radius: 999px; cursor: pointer; overflow: hidden; }
+  .progress > div { height: 100%; background: #d4af37; width: 0%; }
+  .time { color: #b2aea3; font-size: 13px; white-space: nowrap; }
+  .vol { width: 90px; accent-color: #d4af37; }
+  footer { text-align: center; color: #b2aea3; padding: 36px 20px 12px; font-size: 14px; line-height: 1.9; }
+  @media (max-width: 600px) { .hero h1 { font-size: 34px; } .hero img { width: 220px; height: 220px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">علی دولت‌خواه <span>· وب‌سایت رسمی آهنگ‌ها</span></div>
+  <a class="btn-gold" href="#songs">شنیدن آثار</a>
+</header>
+
+<section class="hero">
+  <img src="portrait.png" alt="پرتره رسمی علی دولت‌خواه">
+  <div class="kicker">آرشیو رسمی آثار موسیقیایی</div>
+  <h1>علی دولت‌خواه</h1>
+  <p>جدیدترین تک‌آهنگ‌ها و آثار رسمی علی دولت‌خواه را با کیفیت اصلی و دسترسی مستقیم بشنوید.</p>
+</section>
+
+<main>
+  <section id="featured" style="display:none">
+    <h2>اثر ویژه</h2>
+    <div class="featured">
+      <div class="cover" id="featuredCover">♫</div>
+      <div class="info">
+        <div class="label">اثر ویژه</div>
+        <div class="title" id="featuredTitle"></div>
+        <div class="artist" id="featuredArtist"></div>
+        <button class="play-btn" id="featuredPlay">▶ پخش آهنگ</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="songs">
+    <h2>فهرست آهنگ‌ها <span class="count" id="songCount"></span></h2>
+    <p style="color:#b2aea3;margin:0 0 6px">برای پخش هر آهنگ، روی نام یا دکمه پخش کلیک کنید.</p>
+    <input class="search" id="search" type="text" placeholder="جستجو بر اساس نام آهنگ...">
+    <div id="songList"></div>
+  </section>
+</main>
+
+<footer>
+  علی دولت‌خواه · وب‌سایت رسمی آهنگ‌ها<br>
+  تمامی حقوق آثار محفوظ است.
+</footer>
+
+<div class="player" id="player" style="display:none">
+  <div class="cover" id="playerCover">♫</div>
+  <div class="info">
+    <div class="title" id="playerTitle">آهنگی انتخاب نشده</div>
+    <div class="artist" id="playerArtist">علی دولت‌خواه</div>
+  </div>
+  <div class="controls">
+    <button class="small" id="prevBtn" title="قبلی">⏮</button>
+    <button id="playBtn" title="پخش / توقف">▶</button>
+    <button class="small" id="nextBtn" title="بعدی">⏭</button>
+  </div>
+  <div class="progress-wrap">
+    <span class="time" id="curTime">00:00</span>
+    <div class="progress" id="progress"><div id="progressFill"></div></div>
+    <span class="time" id="durTime">00:00</span>
+  </div>
+  <input class="vol" id="vol" type="range" min="0" max="1" step="0.05" value="0.9" title="صدا">
+</div>
+
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+// ===== فهرست آهنگ‌ها =====
+// برای اضافه کردن آهنگ جدید:
+// ۱. فایل MP3 را در پوشه‌ی songs بگذارید (مثلاً songs/song2.mp3)
+// ۲. یک خط مثل خط زیر به همین فهرست اضافه کنید:
+//    { title: "نام آهنگ", artist: "علی دولت‌خواه", file: "songs/song2.mp3", cover: "" },
+// اگر کاور دارد، به‌جای "" آدرس عکس را بنویسید، مثلاً "covers/song2.jpg".
+// هیچ وابستگی به گوگل، شیت یا اینترنت خارجی نیست؛ همه‌چیز همین‌جاست.
+const SONGS = [
+  { title: "آهنگ تست", artist: "تست", file: "songs/test.mp3", cover: "" }
+];
+
+const audio = document.getElementById('audio');
+const listEl = document.getElementById('songList');
+const countEl = document.getElementById('songCount');
+const searchEl = document.getElementById('search');
+const playerEl = document.getElementById('player');
+let current = -1;
+let filtered = SONGS.slice();
+
+function fmt(s) {
+  if (!isFinite(s)) return "00:00";
+  s = Math.floor(s);
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+function faNum(n) { return String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]); }
+function coverHtml(song, cls) {
+  return song.cover ? '<img src="' + song.cover + '" alt="">' : '♫';
+}
+function render() {
+  const q = searchEl.value.trim();
+  filtered = SONGS.filter(s => !q || s.title.includes(q) || s.artist.includes(q));
+  countEl.textContent = SONGS.length ? '· ' + faNum(SONGS.length) + ' اثر' : '';
+  listEl.innerHTML = '';
+  filtered.forEach(song => {
+    const idx = SONGS.indexOf(song);
+    const row = document.createElement('div');
+    row.className = 'song';
+    row.innerHTML = '<div class="cover">' + coverHtml(song) + '</div>' +
+      '<div class="info"><div class="title">' + song.title + '</div><div class="artist">' + song.artist + '</div></div>' +
+      '<span class="dur" data-dur="' + idx + '"></span>' +
+      '<button class="mini-play">' + (current === idx && !audio.paused ? '⏸ توقف پخش' : '▶ پخش آهنگ') + '</button>';
+    row.addEventListener('click', () => playSong(idx));
+    listEl.appendChild(row);
+    const tmp = new Audio();
+    tmp.preload = 'metadata';
+    tmp.src = song.file;
+    tmp.addEventListener('loadedmetadata', () => {
+      const el = listEl.querySelector('[data-dur="' + idx + '"]');
+      if (el) el.textContent = fmt(tmp.duration);
+    });
+  });
+  // اثر ویژه: جدیدترین آهنگ (اولین آهنگ فهرست)
+  const feat = document.getElementById('featured');
+  if (SONGS.length) {
+    feat.style.display = '';
+    document.getElementById('featuredTitle').textContent = SONGS[0].title;
+    document.getElementById('featuredArtist').textContent = SONGS[0].artist;
+    document.getElementById('featuredCover').innerHTML = coverHtml(SONGS[0]);
+    document.getElementById('featuredPlay').textContent = (current === 0 && !audio.paused) ? '⏸ توقف پخش' : '▶ پخش آهنگ';
+  } else {
+    feat.style.display = 'none';
+  }
+}
+function playSong(idx) {
+  current = idx;
+  const song = SONGS[idx];
+  audio.src = song.file;
+  audio.play();
+  playerEl.style.display = 'flex';
+  document.getElementById('playerTitle').textContent = song.title;
+  document.getElementById('playerArtist').textContent = song.artist;
+  document.getElementById('playerCover').innerHTML = coverHtml(song);
+  render();
+}
+function togglePlay() {
+  if (current < 0) { if (SONGS.length) playSong(0); return; }
+  if (audio.paused) audio.play(); else audio.pause();
+  render();
+}
+document.getElementById('playBtn').addEventListener('click', togglePlay);
+document.getElementById('featuredPlay').addEventListener('click', () => { if (current === 0) togglePlay(); else playSong(0); });
+document.getElementById('prevBtn').addEventListener('click', () => { if (SONGS.length) playSong((current - 1 + SONGS.length) % SONGS.length); });
+document.getElementById('nextBtn').addEventListener('click', () => { if (SONGS.length) playSong((current + 1) % SONGS.length); });
+audio.addEventListener('timeupdate', () => {
+  document.getElementById('curTime').textContent = fmt(audio.currentTime);
+  document.getElementById('durTime').textContent = fmt(audio.duration);
+  document.getElementById('progressFill').style.width = (audio.duration ? (audio.currentTime / audio.duration * 100) : 0) + '%';
+});
+audio.addEventListener('play', render);
+audio.addEventListener('pause', render);
+audio.addEventListener('ended', () => { if (SONGS.length) playSong((current + 1) % SONGS.length); });
+document.getElementById('progress').addEventListener('click', e => {
+  const r = e.currentTarget.getBoundingClientRect();
+  if (audio.duration) audio.currentTime = (e.clientX - r.left) / r.width * audio.duration;
+});
+document.getElementById('vol').addEventListener('input', e => { audio.volume = parseFloat(e.target.value); });
+audio.volume = 0.9;
+searchEl.addEventListener('input', render);
+render();
+</script>
+</body>
+</html>
