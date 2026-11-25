@@ -37,6 +37,9 @@
   .song .artist { color: #b2aea3; font-size: 14px; margin-top: 3px; }
   .song .dur { color: #b2aea3; font-size: 14px; white-space: nowrap; }
   .song .mini-play { background: transparent; color: #d4af37; border: 1px solid #d4af37; border-radius: 999px; padding: 8px 14px; font-family: Tahoma, sans-serif; cursor: pointer; white-space: nowrap; }
+  .song .dl-btn { text-decoration: none; }
+  .featured .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .featured .dl-btn { background: transparent; color: #d4af37; border: 1px solid #d4af37; }
   .player { position: fixed; left: 0; right: 0; bottom: 0; background: #1c1c22; border-top: 1px solid #3a3a42; padding: 12px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
   .player .cover { width: 52px; height: 52px; min-width: 52px; font-size: 26px; border-radius: 10px; }
   .player .info { min-width: 140px; }
@@ -76,14 +79,17 @@
         <div class="label">اثر ویژه</div>
         <div class="title" id="featuredTitle"></div>
         <div class="artist" id="featuredArtist"></div>
-        <button class="play-btn" id="featuredPlay">▶ پخش آهنگ</button>
+        <div class="actions">
+          <button class="play-btn" id="featuredPlay">▶ پخش آهنگ</button>
+          <a class="play-btn dl-btn" id="featuredDl" download>⬇ دانلود آهنگ</a>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="songs">
     <h2>فهرست آهنگ‌ها <span class="count" id="songCount"></span></h2>
-    <p style="color:#b2aea3;margin:0 0 6px">برای پخش هر آهنگ، روی نام یا دکمه پخش کلیک کنید.</p>
+    <p style="color:#b2aea3;margin:0 0 6px">برای پخش هر آهنگ، روی نام یا دکمه پخش کلیک کنید. برای دانلود، روی دکمه دانلود کلیک کنید.</p>
     <input class="search" id="search" type="text" placeholder="جستجو بر اساس نام آهنگ...">
     <div id="songList"></div>
   </section>
@@ -156,8 +162,10 @@ function render() {
     row.innerHTML = '<div class="cover">' + coverHtml(song) + '</div>' +
       '<div class="info"><div class="title">' + song.title + '</div><div class="artist">' + song.artist + '</div></div>' +
       '<span class="dur" data-dur="' + idx + '"></span>' +
+      '<a class="mini-play dl-btn" href="' + song.file + '" download="' + song.title + '.mp3">⬇ دانلود</a>' +
       '<button class="mini-play">' + (current === idx && !audio.paused ? '⏸ توقف پخش' : '▶ پخش آهنگ') + '</button>';
     row.addEventListener('click', () => playSong(idx));
+    row.querySelector('.dl-btn').addEventListener('click', e => e.stopPropagation());
     listEl.appendChild(row);
     const tmp = new Audio();
     tmp.preload = 'metadata';
@@ -175,6 +183,9 @@ function render() {
     document.getElementById('featuredArtist').textContent = SONGS[0].artist;
     document.getElementById('featuredCover').innerHTML = coverHtml(SONGS[0]);
     document.getElementById('featuredPlay').textContent = (current === 0 && !audio.paused) ? '⏸ توقف پخش' : '▶ پخش آهنگ';
+    const featDl = document.getElementById('featuredDl');
+    featDl.href = SONGS[0].file;
+    featDl.setAttribute('download', SONGS[0].title + '.mp3');
   } else {
     feat.style.display = 'none';
   }
