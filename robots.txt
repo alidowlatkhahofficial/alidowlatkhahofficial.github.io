@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alidowlatkhahofficial.github.io/sitemap.xml
