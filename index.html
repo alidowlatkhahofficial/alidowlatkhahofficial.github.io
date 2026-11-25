@@ -22,8 +22,71 @@
   "url": "https://alidowlatkhahofficial.github.io/",
   "image": "https://alidowlatkhahofficial.github.io/portrait.png",
   "track": [
-    { "@type": "MusicRecording", "name": "ریمیکس طبیب قلبم", "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-210549-5019.mp3" },
-    { "@type": "MusicRecording", "name": "Boore Zal", "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-194500-7289.mp3" }
+    {
+      "@type": "MusicRecording",
+      "name": "بیقرارم",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-235106-6522.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "گل گرمسیری",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-234648-1100.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "هوای عاشقی(گل تو بیو)",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-224741-6421.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "گل عسلی",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-223208-6731.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "چی باغ لیمو",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-221336-5454.m4a"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "مجنون",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-220658-9009.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "شلال ٢",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-220055-4252.m4a"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "گل بی‌وفا",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-215348-9781.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "شلال",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-214218-9337.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "گل ته تغاری",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-214034-9023.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "می فرفری",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-211245-2777.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "ریمیکس طبیب قلبم",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-210549-5019.mp3"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Boore Zal",
+      "url": "https://alidowlatkhahofficial.github.io/songs/song-20261125-194500-7289.mp3"
+    }
   ]
 }
 </script>
@@ -61,6 +124,7 @@
   .song .dur { color: #b2aea3; font-size: 14px; white-space: nowrap; }
   .song .mini-play { background: transparent; color: #d4af37; border: 1px solid #d4af37; border-radius: 999px; padding: 8px 14px; font-family: Tahoma, sans-serif; cursor: pointer; white-space: nowrap; }
   .song .dl-btn { text-decoration: none; }
+  .song .page-btn { text-decoration: none; }
   .featured .actions { display: flex; gap: 10px; flex-wrap: wrap; }
   .featured .dl-btn { background: transparent; color: #d4af37; border: 1px solid #d4af37; }
   .player { position: fixed; left: 0; right: 0; bottom: 0; background: #1c1c22; border-top: 1px solid #3a3a42; padding: 12px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
@@ -105,6 +169,7 @@
         <div class="actions">
           <button class="play-btn" id="featuredPlay">▶ پخش آهنگ</button>
           <a class="play-btn dl-btn" id="featuredDl" download>⬇ دانلود آهنگ</a>
+          <a class="play-btn dl-btn" id="featuredPage">صفحه‌ی آهنگ</a>
         </div>
       </div>
     </div>
@@ -186,6 +251,9 @@ function faNum(n) { return String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[
 function coverHtml(song, cls) {
   return song.cover ? '<img src="' + song.cover + '" alt="">' : '♫';
 }
+function pageUrl(song) {
+  return song.file.replace(/^songs\//, '').replace(/\.[^.]+$/, '') + '.html';
+}
 function render() {
   const q = searchEl.value.trim();
   filtered = SONGS.filter(s => !q || s.title.includes(q) || s.artist.includes(q));
@@ -198,10 +266,11 @@ function render() {
     row.innerHTML = '<div class="cover">' + coverHtml(song) + '</div>' +
       '<div class="info"><div class="title">' + song.title + '</div><div class="artist">' + song.artist + '</div></div>' +
       '<span class="dur" data-dur="' + idx + '"></span>' +
+      '<a class="mini-play page-btn" href="' + pageUrl(song) + '">صفحه‌ی آهنگ</a>' +
       '<a class="mini-play dl-btn" href="' + song.file + '" download="' + song.title + '.mp3">⬇ دانلود</a>' +
       '<button class="mini-play">' + (current === idx && !audio.paused ? '⏸ توقف پخش' : '▶ پخش آهنگ') + '</button>';
     row.addEventListener('click', () => playSong(idx));
-    row.querySelector('.dl-btn').addEventListener('click', e => e.stopPropagation());
+    row.querySelectorAll('.dl-btn, .page-btn').forEach(el => el.addEventListener('click', e => e.stopPropagation()));
     listEl.appendChild(row);
     const tmp = new Audio();
     tmp.preload = 'metadata';
@@ -222,6 +291,7 @@ function render() {
     const featDl = document.getElementById('featuredDl');
     featDl.href = SONGS[0].file;
     featDl.setAttribute('download', SONGS[0].title + '.mp3');
+    document.getElementById('featuredPage').href = pageUrl(SONGS[0]);
   } else {
     feat.style.display = 'none';
   }
